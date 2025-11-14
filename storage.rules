@@ -1,0 +1,49 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // ============================================
+    // Blog Post Images
+    // ============================================
+    match /blog/{allPaths=**} {
+      // Anyone can read blog images
+      allow read: if true;
+      
+      // Only authenticated admins can upload/modify
+      allow write: if request.auth != null
+                   && request.auth.uid == 'admin'
+                   && request.resource.size < 5 * 1024 * 1024; // 5MB max
+    }
+
+    // ============================================
+    // User Avatars (for future comments feature)
+    // ============================================
+    match /avatars/{allPaths=**} {
+      // Anyone can read avatars
+      allow read: if true;
+      
+      // Users can upload their own avatars
+      allow write: if request.auth != null
+                   && request.resource.size < 2 * 1024 * 1024; // 2MB max
+    }
+
+    // ============================================
+    // Admin Uploads (General)
+    // ============================================
+    match /admin/{allPaths=**} {
+      // Only admin can read
+      allow read: if request.auth != null && request.auth.uid == 'admin';
+      
+      // Only admin can upload/modify
+      allow write: if request.auth != null
+                   && request.auth.uid == 'admin'
+                   && request.resource.size < 10 * 1024 * 1024; // 10MB max
+    }
+
+    // ============================================
+    // Deny everything else by default
+    // ============================================
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

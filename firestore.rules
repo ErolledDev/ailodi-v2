@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ============================================
+    // Comments Collection
+    // ============================================
+    match /comments/{document=**} {
+      // Anyone can read approved comments
+      allow read: if resource.data.approved == true;
+      
+      // Anyone can create new comments (unapproved by default)
+      allow create: if request.resource.data.email != null
+                    && request.resource.data.content != null
+                    && request.resource.data.author != null
+                    && request.resource.data.postSlug != null
+                    && request.resource.data.approved == false
+                    && request.resource.data.createdAt == request.time;
+      
+      // Only admin can update (approve/reject)
+      allow update: if request.auth != null
+                    && request.auth.uid == 'admin'
+                    && (request.resource.data.approved == true 
+                        || request.resource.data.approved == false);
+      
+      // Only admin can delete
+      allow delete: if request.auth != null
+                    && request.auth.uid == 'admin';
+    }
+
+    // ============================================
+    // Subscribers Collection
+    // ============================================
+    match /subscribers/{document=**} {
+      // Only admin can read subscriber emails
+      allow read: if request.auth != null && request.auth.uid == 'admin';
+      
+      // Anyone can subscribe with valid email
+      allow create: if request.resource.data.email != null
+                    && request.resource.data.email.matches('.*@.*')
+                    && request.resource.data.subscribedAt == request.time;
+      
+      // Only admin can update
+      allow update: if request.auth != null && request.auth.uid == 'admin';
+      
+      // Only admin can delete
+      allow delete: if request.auth != null && request.auth.uid == 'admin';
+    }
+
+    // ============================================
+    // Admin Replies (Nested in comments)
+    // ============================================
+    match /comments/{commentId}/replies/{reply=**} {
+      // Anyone can read admin replies
+      allow read: if true;
+      
+      // Only admin can create replies
+      allow create: if request.auth != null
+                    && request.auth.uid == 'admin'
+                    && request.resource.data.content != null
+                    && request.resource.data.createdAt == request.time;
+      
+      // Only admin can update own replies
+      allow update: if request.auth != null && request.auth.uid == 'admin';
+      
+      // Only admin can delete own replies
+      allow delete: if request.auth != null && request.auth.uid == 'admin';
+    }
+
+    // ============================================
+    // Catch-all: Deny everything else
+    // ============================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
