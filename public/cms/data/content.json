@@ -1,0 +1,19 @@
+[
+  {
+    "id": "firestore-generated-id-123",
+    "title": "The Clever Idea: Next.js, Firebase & Cloudflare",
+    "slug": "the-clever-idea-nextjs-firebase-cloudflare",
+    "content": "# The Clever Idea\n\nThis is the **body** of my post in Markdown...",
+    "featuredImageUrl": "https://firebasestorage.googleapis.com/v0/b/...",
+    "metaDescription": "Explore a clever architecture for your Next.js blog...",
+    "seoTitle": "Clever Next.js Blog Architecture | MySite",
+    "keywords": ["nextjs", "firebase", "cloudflare", "blog"],
+    "author": "Your Name",
+    "categories": ["Web Development", "Cloud"],
+    "tags": ["nextjs", "firebase", "cloudflare", "blogging", "seo"],
+    "status": "published",
+    "publishDate": "2025-06-27T10:00:00Z",
+    "createdAt": "2025-06-27T09:30:00Z",
+    "updatedAt": "2025-06-27T10:15:00Z"
+  }
+]

@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lodi Complete Customization Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #f1f3f4;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-tertiary: #9ca3af;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #1d4ed8;
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --code-bg: #f3f4f6;
+            --code-border: #e5e7eb;
+            
+            /* Dark mode colors */
+            --bg-primary-dark: #0f172a;
+            --bg-secondary-dark: #1e293b;
+            --bg-tertiary-dark: #334155;
+            --text-primary-dark: #f8fafc;
+            --text-secondary-dark: #cbd5e1;
+            --text-tertiary-dark: #94a3b8;
+            --border-light-dark: #334155;
+            --border-medium-dark: #475569;
+            --code-bg-dark: #1e293b;
+            --code-border-dark: #334155;
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            
+            /* Border radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+        
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: var(--bg-primary-dark);
+                --bg-secondary: var(--bg-secondary-dark);
+                --bg-tertiary: var(--bg-tertiary-dark);
+                --text-primary: var(--text-primary-dark);
+                --text-secondary: var(--text-secondary-dark);
+                --text-tertiary: var(--text-tertiary-dark);
+                --border-light: var(--border-light-dark);
+                --border-medium: var(--border-medium-dark);
+                --code-bg: var(--code-bg-dark);
+                --code-border: var(--code-border-dark);
+            }
+        }
+        
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: var(--space-12);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: var(--space-4) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-weight: 600;
+            font-size: var(--font-size-lg);
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: var(--font-size-sm);
+        }
+        
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-light);
+            padding: var(--space-8) var(--space-6);
+            position: sticky;
+            top: 73px;
+            height: calc(100vh - 73px);
+            overflow-y: auto;
+        }
+        
+        .sidebar-title {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-4);
+        }
+        
+        .nav-list {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: var(--space-1);
+        }
+        
+        .nav-link {
+            display: block;
+            padding: var(--space-2) var(--space-3);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        .nav-link.active {
+            background: var(--accent-primary);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 16px;
+            background: var(--accent-primary);
+            border-radius: 2px;
+        }
+        
+        .nav-sublist {
+            margin-left: var(--space-4);
+            margin-top: var(--space-2);
+        }
+        
+        .nav-sublink {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            padding: var(--space-1) var(--space-3);
+        }
+        
+        /* Content */
+        .content {
+            padding: var(--space-8) var(--space-6);
+            max-width: 900px;
+        }
+        
+        /* Typography */
+        .page-title {
+            font-size: var(--font-size-4xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            line-height: 1.2;
+        }
+        
+        .page-subtitle {
+            font-size: var(--font-size-xl);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-12);
+            line-height: 1.4;
+        }
+        
+        .section-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: var(--space-16) 0 var(--space-6) 0;
+            line-height: 1.3;
+            position: relative;
+        }
+        
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 2px;
+        }
+        
+        .subsection-title {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: var(--space-10) 0 var(--space-4) 0;
+            line-height: 1.3;
+        }
+        
+        .text-block {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-6);
+            line-height: 1.7;
+        }
+        
+        /* Lists */
+        .feature-list {
+            list-style: none;
+            margin: var(--space-6) 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            padding: var(--space-4);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+        }
+        
+        .feature-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-top: var(--space-1);
+        }
+        
+        .feature-content h4 {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .feature-content p {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Code blocks */
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin: var(--space-6) 0;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-3);
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .code-title {
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .copy-button {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            padding: var(--space-1) var(--space-3);
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-button:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        
+        .code-content {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        
+        /* Inline code */
+        code {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: var(--radius-sm);
+            padding: var(--space-1) var(--space-2);
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+            font-size: var(--font-size-sm);
+            color: var(--accent-primary);
+        }
+        
+        /* Callouts */
+        .callout {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+            margin: var(--space-6) 0;
+        }
+        
+        .callout.warning {
+            border-left-color: var(--warning);
+            background: rgba(245, 158, 11, 0.05);
+        }
+        
+        .callout.success {
+            border-left-color: var(--success);
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .callout.error {
+            border-left-color: var(--error);
+            background: rgba(239, 68, 68, 0.05);
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .callout-content {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        
+        .callout-content ol {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .callout-content li {
+            margin-bottom: var(--space-2);
+        }
+        
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: var(--space-6) 0;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-primary);
+        }
+        
+        th {
+            background: var(--bg-secondary);
+            padding: var(--space-4);
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-light);
+            font-size: var(--font-size-sm);
+        }
+        
+        td {
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-5);
+            background: var(--accent-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-medium);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .container {
+                padding: 0 var(--space-4);
+            }
+            
+            .content {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .page-title {
+                font-size: var(--font-size-3xl);
+            }
+            
+            .section-title {
+                font-size: var(--font-size-xl);
+                margin: var(--space-12) 0 var(--space-4) 0;
+            }
+            
+            .section-title::before {
+                left: -16px;
+                width: 3px;
+                height: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 var(--space-4);
+            }
+            
+            .page-title {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .page-subtitle {
+                font-size: var(--font-size-lg);
+            }
+            
+            .feature-item {
+                padding: var(--space-3);
+            }
+            
+            .code-block {
+                padding: var(--space-4);
+            }
+            
+            .callout {
+                padding: var(--space-4);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 var(--space-3);
+            }
+            
+            .content {
+                padding: var(--space-4) var(--space-3);
+            }
+            
+            .feature-item {
+                flex-direction: column;
+                gap: var(--space-2);
+            }
+            
+            .feature-icon {
+                align-self: flex-start;
+            }
+        }
+        
+        /* Smooth scrolling and focus states */
+        .nav-link:focus,
+        .btn:focus,
+        .copy-button:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+        
+        /* Print styles */
+        @media print {
+            .sidebar,
+            .header,
+            .theme-toggle,
+            .copy-button {
+                display: none;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .content {
+                padding: 0;
+            }
+            
+            .page-title,
+            .section-title {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-icon">AI</div>
+                    AI Lodi Complete Customization Guide
+                </a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <nav class="sidebar">
+                <div class="sidebar-title">Table of Contents</div>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#overview" class="nav-link active">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#branding" class="nav-link">🏷️ Branding & Identity</a>
+                        <ul class="nav-list nav-sublist">
+                            <li class="nav-item">
+                                <a href="#site-info" class="nav-link nav-sublink">Site Information</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#logos" class="nav-link nav-sublink">Logos & Icons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#social-images" class="nav-link nav-sublink">Social Media Images</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#design" class="nav-link">🎨 Design System</a>
+                        <ul class="nav-list nav-sublist">
+                            <li class="nav-item">
+                                <a href="#colors" class="nav-link nav-sublink">Colors & Theme</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#typography" class="nav-link nav-sublink">Typography</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#layout" class="nav-link nav-sublink">Layout & Spacing</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#content-api" class="nav-link">📊 Content API</a>
+                        <ul class="nav-list nav-sublist">
+                            <li class="nav-item">
+                                <a href="#api-setup" class="nav-link nav-sublink">API Setup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#cms-integration" class="nav-link nav-sublink">CMS Integration</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#static-json" class="nav-link nav-sublink">Static JSON</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#components" class="nav-link">🧩 Components</a>
+                        <ul class="nav-list nav-sublist">
+                            <li class="nav-item">
+                                <a href="#navigation" class="nav-link nav-sublink">Navigation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#footer" class="nav-link nav-sublink">Footer</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#hero" class="nav-link nav-sublink">Hero Section</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#seo" class="nav-link">📊 SEO & Metadata</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#comments" class="nav-link">💬 Comments & Newsletter</a>
+                        <ul class="nav-list nav-sublist">
+                            <li class="nav-item">
+                                <a href="#valine-setup" class="nav-link nav-sublink">Valine Setup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#security" class="nav-link nav-sublink">Security Features</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#deployment" class="nav-link">🚀 Deployment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#pwa" class="nav-link">📱 PWA Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#advanced" class="nav-link">⚡ Advanced</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="content">
+                <h1 class="page-title">AI Lodi Complete Customization Guide</h1>
+                <p class="page-subtitle">
+                    Transform your AI Lodi blog into a unique, branded experience with our comprehensive customization guide. 
+                    This complete reference covers everything from basic branding to advanced API integrations, deployment configurations, and performance optimizations.
+                </p>
+
+                <section id="overview">
+                    <h2 class="section-title">🎨 Complete Customization Overview</h2>
+                    <p class="text-block">
+                        AI Lodi is a production-ready, commercial-grade blog platform built with Next.js 14. This isn't just a template—it's a complete blog ecosystem with CMS capabilities, LeanCloud backend integration, and enterprise-level features. Every aspect of the platform can be customized to match your brand and requirements.
+                    </p>
+
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <div class="feature-icon">🎨</div>
+                            <div class="feature-content">
+                                <h4>Complete Visual Branding</h4>
+                                <p>Customize colors, typography, logos, spacing, and overall visual identity. Built with CSS custom properties for easy theming and dark mode support.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-content">
+                                <h4>Flexible Content Management</h4>
+                                <p>Connect to any CMS (Strapi, Contentful, Ghost, WordPress) or use static JSON. Transform any API structure to work with AI Lodi's content system.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">🧩</div>
+                            <div class="feature-content">
+                                <h4>Modular Component System</h4>
+                                <p>40+ pre-built components with TypeScript and Tailwind CSS. Easy to modify, extend, and customize for your specific needs.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">🚀</div>
+                            <div class="feature-content">
+                                <h4>Enterprise Performance</h4>
+                                <p>Cloudflare Workers deployment, edge computing, SEO optimization, PWA features, and global CDN distribution for maximum performance.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">💬</div>
+                            <div class="feature-content">
+                                <h4>User Engagement Features</h4>
+                                <p>Integrated Valine comments with security features, newsletter system, social sharing, and analytics integration for maximum user engagement.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">🛡️</div>
+                            <div class="feature-content">
+                                <h4>Security & Compliance</h4>
+                                <p>Built-in security headers, GDPR compliance, accessibility features, and comment moderation tools for professional deployment.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="branding">
+                    <h2 class="section-title">🏷️ Branding & Identity</h2>
+                    
+                    <div id="site-info">
+                        <h3 class="subsection-title">Site Information</h3>
+                        <p class="text-block">
+                            Configure your site's basic information through environment variables. These settings control your site's identity across all pages, metadata, social sharing, and SEO optimization.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">.env.local - Basic Site Configuration</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content"># Site Configuration
+NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+NEXT_PUBLIC_SITE_NAME=Your Blog Name
+NEXT_PUBLIC_SITE_DESCRIPTION=Your compelling site description for SEO and social sharing
+
+# Contact Information
+CONTACT_EMAIL=hello@yourdomain.com
+COLLABORATE_EMAIL=collaborate@yourdomain.com
+
+# Analytics (optional)
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_PLAUSIBLE_DOMAIN=yourdomain.com</div>
+                        </div>
+
+                        <div class="callout success">
+                            <div class="callout-title">✅ SEO Best Practices</div>
+                            <div class="callout-content">
+                                <ul>
+                                    <li>Keep site description under 160 characters for optimal search results</li>
+                                    <li>Use your primary domain (with https://) for NEXT_PUBLIC_SITE_URL</li>
+                                    <li>Site name should be concise and brandable (2-4 words)</li>
+                                    <li>Include target keywords naturally in your description</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="logos">
+                        <h3 class="subsection-title">Logos & Icons</h3>
+                        <p class="text-block">
+                            Replace the default logos and icons with your brand assets. All files should be placed in the <code>public/</code> directory. The platform supports multiple icon formats for different use cases and devices.
+                        </p>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>File</th>
+                                        <th>Dimensions</th>
+                                        <th>Purpose</th>
+                                        <th>Required</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>logo.png</code></td>
+                                        <td>512×512px</td>
+                                        <td>Main logo for structured data, RSS feed, and high-res displays</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>favicon.ico</code></td>
+                                        <td>32×32px</td>
+                                        <td>Standard browser favicon for older browsers</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>favicon.svg</code></td>
+                                        <td>Vector</td>
+                                        <td>Scalable favicon for modern browsers</td>
+                                        <td>Recommended</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>apple-touch-icon.png</code></td>
+                                        <td>180×180px</td>
+                                        <td>iOS home screen icon when users add to home screen</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>icon-192.png</code></td>
+                                        <td>192×192px</td>
+                                        <td>PWA icon for medium-resolution displays</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>icon-512.png</code></td>
+                                        <td>512×512px</td>
+                                        <td>PWA icon for high-resolution displays</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout">
+                            <div class="callout-title">💡 Icon Design Tips</div>
+                            <div class="callout-content">
+                                <ul>
+                                    <li>Use simple, recognizable designs that work at small sizes</li>
+                                    <li>Ensure good contrast and readability</li>
+                                    <li>Test icons on different backgrounds (light/dark)</li>
+                                    <li>Use PNG format for better compression and transparency</li>
+                                    <li>Consider creating a monochrome version for favicon.svg</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="social-images">
+                        <h3 class="subsection-title">Social Media Images</h3>
+                        <p class="text-block">
+                            Social media sharing images are crucial for engagement when your content is shared on platforms like Facebook, Twitter, LinkedIn, and messaging apps.
+                        </p>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>File</th>
+                                        <th>Dimensions</th>
+                                        <th>Purpose</th>
+                                        <th>Platforms</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>og-image.jpg</code></td>
+                                        <td>1200×630px</td>
+                                        <td>Main Open Graph image for social sharing</td>
+                                        <td>Facebook, LinkedIn, Twitter, WhatsApp</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>og-image-square.jpg</code></td>
+                                        <td>1200×1200px</td>
+                                        <td>Square format for specific social platforms</td>
+                                        <td>Instagram, some mobile previews</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Social Image Configuration - app/layout.tsx</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">export const metadata: Metadata = {
+  openGraph: {
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Your Site Name - Description',
+        type: 'image/jpeg',
+      },
+      {
+        url: '/og-image-square.jpg',
+        width: 1200,
+        height: 1200,
+        alt: 'Your Site Name Square Logo',
+        type: 'image/jpeg',
+      },
+    ],
+  },
+  twitter: {
+    images: ['/og-image.jpg'],
+  },
+};</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="design">
+                    <h2 class="section-title">🎨 Design System</h2>
+                    
+                    <div id="colors">
+                        <h3 class="subsection-title">Colors & Theme</h3>
+                        <p class="text-block">
+                            AI Lodi uses a sophisticated color system built with CSS custom properties and HSL values. This approach provides better color manipulation, automatic dark mode support, and easy theme customization.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">app/globals.css - Color System</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">:root {
+  /* Primary brand colors */
+  --primary: 142 76% 36%; /* Your main brand color (HSL format) */
+  --primary-foreground: 355 20% 98%; /* Text color on primary background */
+  
+  /* Secondary colors */
+  --secondary: 240 4.8% 95.9%; /* Secondary background color */
+  --secondary-foreground: 240 5.9% 10%; /* Text on secondary background */
+  
+  /* Background colors */
+  --background: 0 0% 100%; /* Main page background (white) */
+  --foreground: 240 10% 3.9%; /* Main text color (dark) */
+  
+  /* UI element colors */
+  --card: 0 0% 100%; /* Card background */
+  --card-foreground: 240 10% 3.9%; /* Text on cards */
+  --muted: 240 4.8% 95.9%; /* Muted background */
+  --muted-foreground: 240 3.8% 35%; /* Muted text (improved contrast) */
+  --accent: 240 4.8% 95.9%; /* Accent background */
+  --accent-foreground: 240 5.9% 10%; /* Text on accent */
+  
+  /* Border and input colors */
+  --border: 240 5.9% 90%; /* Default border color */
+  --input: 240 5.9% 90%; /* Input field borders */
+  --ring: 142 76% 36%; /* Focus ring color (matches primary) */
+  
+  /* Status colors */
+  --destructive: 0 84.2% 60.2%; /* Error/danger color */
+  --destructive-foreground: 0 0% 98%; /* Text on error background */
+}
+
+/* Dark mode colors */
+.dark {
+  --background: 222 84% 4.9%; /* Dark background */
+  --foreground: 210 40% 98%; /* Light text */
+  --card: 222 84% 4.9%; /* Dark card background */
+  --card-foreground: 210 40% 98%; /* Light text on cards */
+  --muted: 217 32.6% 17.5%; /* Dark muted background */
+  --muted-foreground: 215 20.2% 75%; /* Light muted text */
+  --border: 217 32.6% 17.5%; /* Dark borders */
+  --input: 217 32.6% 17.5%; /* Dark input borders */
+}</div>
+                        </div>
+
+                        <div class="callout">
+                            <div class="callout-title">🎨 Color Customization Guide</div>
+                            <div class="callout-content">
+                                <ol>
+                                    <li><strong>Choose Your Primary Color:</strong> Use tools like <a href="https://hslpicker.com/" target="_blank">HSL Color Picker</a> to convert your brand color to HSL format</li>
+                                    <li><strong>Test Contrast:</strong> Ensure 4.5:1 contrast ratio for accessibility using <a href="https://webaim.org/resources/contrastchecker/" target="_blank">WebAIM Contrast Checker</a></li>
+                                    <li><strong>Generate Variations:</strong> Create lighter/darker variations for hover states and backgrounds</li>
+                                    <li><strong>Update Both Modes:</strong> Customize both light and dark mode colors for consistent branding</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="typography">
+                        <h3 class="subsection-title">Typography</h3>
+                        <p class="text-block">
+                            AI Lodi uses a dual-font system with Inter for body text and Playfair Display for headings. You can easily replace these with your brand fonts while maintaining the typographic hierarchy.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">app/layout.tsx - Font Configuration</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">import { YourBodyFont, YourHeadingFont } from 'next/font/google';
+
+// Body font (for paragraphs, UI text)
+const bodyFont = YourBodyFont({ 
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  variable: '--font-body',
+  weight: ['300', '400', '500', '600', '700'], // Include needed weights
+});
+
+// Heading font (for titles, headings)
+const headingFont = YourHeadingFont({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  variable: '--font-heading',
+  weight: ['400', '600', '700'], // Heading weights
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" className={`${bodyFont.variable} ${headingFont.variable}`}>
+      <body className={bodyFont.className}>
+        {children}
+      </body>
+    </html>
+  );
+}</div>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">app/globals.css - Typography Variables</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">:root {
+  --font-inter: 'YourBodyFont', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-playfair: 'YourHeadingFont', Georgia, 'Times New Roman', serif;
+}
+
+/* Apply fonts to elements */
+body {
+  font-family: var(--font-inter);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-variant-numeric: oldstyle-nums;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair);
+  font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+}</div>
+                        </div>
+
+                        <div class="callout warning">
+                            <div class="callout-title">⚠️ Font Performance Tips</div>
+                            <div class="callout-content">
+                                <ul>
+                                    <li>Use <code>display: 'swap'</code> for better loading performance</li>
+                                    <li>Only include font weights you actually use</li>
+                                    <li>Consider using system fonts for better performance</li>
+                                    <li>Preload critical fonts with <code>preload: true</code></li>
+                                    <li>Test font loading on slow connections</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="layout">
+                        <h3 class="subsection-title">Layout & Spacing</h3>
+                        <p class="text-block">
+                            AI Lodi uses an 8px spacing system and responsive design principles. Customize spacing, breakpoints, and layout constraints through Tailwind CSS configuration.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">tailwind.config.ts - Spacing & Layout</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">module.exports = {
+  theme: {
+    extend: {
+      // Custom spacing values (8px grid system)
+      spacing: {
+        '18': '4.5rem',   // 72px
+        '88': '22rem',    // 352px
+        '128': '32rem',   // 512px
+      },
+      
+      // Custom max-width values
+      maxWidth: {
+        '8xl': '88rem',   // 1408px
+        '9xl': '96rem',   // 1536px
+      },
+      
+      // Custom breakpoints
+      screens: {
+        'xs': '475px',
+        '3xl': '1600px',
+      },
+      
+      // Custom container settings
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          sm: '2rem',
+          lg: '4rem',
+          xl: '5rem',
+          '2xl': '6rem',
+        },
+      },
+    }
+  }
+}</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="content-api">
+                    <h2 class="section-title">📊 Content API Configuration</h2>
+                    
+                    <div id="api-setup">
+                        <h3 class="subsection-title">Simple API URL Change</h3>
+                        <p class="text-block">
+                            The easiest way to use your own content is to update the API URL in your environment variables. AI Lodi can connect to any JSON API endpoint that returns an array of blog posts.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">.env.local - API Configuration</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content"># Blog API Configuration
+NEXT_PUBLIC_API_URL=https://your-cms-api.com/api/posts
+
+# Alternative: Static JSON file
+# NEXT_PUBLIC_API_URL=https://yourdomain.com/api/content.json</div>
+                        </div>
+
+                        <h4 style="font-size: var(--font-size-lg); font-weight: 600; margin: var(--space-6) 0 var(--space-3) 0;">Required JSON Structure</h4>
+                        <p class="text-block">
+                            Your API endpoint should return an array of blog posts with this structure. All fields are required for optimal functionality:
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Required JSON Response Format</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">[
+  {
+    "id": "unique-post-id",
+    "title": "Your Post Title",
+    "slug": "your-post-slug",
+    "content": "# Your Content Here\n\nMarkdown content...",
+    "metaDescription": "SEO description for this post (max 160 chars)",
+    "seoTitle": "SEO optimized title",
+    "keywords": ["keyword1", "keyword2", "keyword3"],
+    "author": "Author Name",
+    "categories": ["Technology", "AI"],
+    "tags": ["nextjs", "blog", "tutorial"],
+    "status": "published",
+    "publishDate": "2025-01-01T00:00:00Z",
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z",
+    "featuredImageUrl": "https://example.com/image.jpg"
+  }
+]</div>
+                        </div>
+                    </div>
+
+                    <div id="cms-integration">
+                        <h3 class="subsection-title">CMS Integration Examples</h3>
+                        <p class="text-block">
+                            If your CMS has a different API structure, you can transform the data in <code>lib/content.ts</code>. Here are examples for popular CMS platforms:
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Strapi CMS Integration</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">// lib/strapi.ts
+const STRAPI_URL = 'https://your-strapi.com';
+
+export async function getStrapiPosts() {
+  const response = await fetch(`${STRAPI_URL}/api/posts?populate=*`);
+  const { data } = await response.json();
+  
+  return data.map(post => ({
+    id: post.id,
+    title: post.attributes.title,
+    slug: post.attributes.slug,
+    content: post.attributes.content,
+    metaDescription: post.attributes.metaDescription,
+    seoTitle: post.attributes.seoTitle,
+    keywords: post.attributes.keywords || [],
+    author: post.attributes.author?.data?.attributes?.name || 'Anonymous',
+    categories: post.attributes.categories?.data?.map(cat => cat.attributes.name) || [],
+    tags: post.attributes.tags?.data?.map(tag => tag.attributes.name) || [],
+    status: post.attributes.publishedAt ? 'published' : 'draft',
+    publishDate: post.attributes.publishedAt,
+    createdAt: post.attributes.createdAt,
+    updatedAt: post.attributes.updatedAt,
+    featuredImageUrl: post.attributes.featuredImage?.data?.attributes?.url
+  }));
+}</div>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Contentful CMS Integration</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">// lib/contentful.ts
+import { createClient } from 'contentful';
+
+const client = createClient({
+  space: 'your-space-id',
+  accessToken: 'your-access-token',
+});
+
+export async function getContentfulPosts() {
+  const entries = await client.getEntries({
+    content_type: 'blogPost',
+    order: '-sys.createdAt',
+  });
+  
+  return entries.items.map(item => ({
+    id: item.sys.id,
+    title: item.fields.title,
+    slug: item.fields.slug,
+    content: item.fields.content,
+    metaDescription: item.fields.metaDescription,
+    seoTitle: item.fields.seoTitle,
+    keywords: item.fields.keywords || [],
+    author: item.fields.author?.fields?.name || 'Anonymous',
+    categories: item.fields.categories?.map(cat => cat.fields.name) || [],
+    tags: item.fields.tags || [],
+    status: 'published',
+    publishDate: item.fields.publishDate || item.sys.createdAt,
+    createdAt: item.sys.createdAt,
+    updatedAt: item.sys.updatedAt,
+    featuredImageUrl: item.fields.featuredImage?.fields?.file?.url
+  }));
+}</div>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">Ghost CMS Integration</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">// lib/ghost.ts
+const GHOST_URL = 'https://your-ghost.com';
+const GHOST_KEY = 'your-content-api-key';
+
+export async function getGhostPosts() {
+  const response = await fetch(
+    `${GHOST_URL}/ghost/api/v3/content/posts/?key=${GHOST_KEY}&include=tags,authors&formats=html`
+  );
+  const { posts } = await response.json();
+  
+  return posts.map(post => ({
+    id: post.id,
+    title: post.title,
+    slug: post.slug,
+    content: post.html,
+    metaDescription: post.meta_description || post.excerpt,
+    seoTitle: post.meta_title || post.title,
+    keywords: post.tags?.map(tag => tag.name) || [],
+    author: post.authors?.[0]?.name || 'Anonymous',
+    categories: post.primary_tag ? [post.primary_tag.name] : [],
+    tags: post.tags?.map(tag => tag.name) || [],
+    status: post.status,
+    publishDate: post.published_at,
+    createdAt: post.created_at,
+    updatedAt: post.updated_at,
+    featuredImageUrl: post.feature_image
+  }));
+}</div>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">WordPress REST API Integration</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">// lib/wordpress.ts
+const WP_URL = 'https://your-wordpress.com';
+
+export async function getWordPressPosts() {
+  const response = await fetch(`${WP_URL}/wp-json/wp/v2/posts?_embed`);
+  const posts = await response.json();
+  
+  return posts.map(post => ({
+    id: post.id,
+    title: post.title.rendered,
+    slug: post.slug,
+    content: post.content.rendered,
+    metaDescription: post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 160),
+    seoTitle: post.title.rendered,
+    keywords: post._embedded?.['wp:term']?.[1]?.map(tag => tag.name) || [],
+    author: post._embedded?.author?.[0]?.name || 'Anonymous',
+    categories: post._embedded?.['wp:term']?.[0]?.map(cat => cat.name) || [],
+    tags: post._embedded?.['wp:term']?.[1]?.map(tag => tag.name) || [],
+    status: post.status === 'publish' ? 'published' : 'draft',
+    publishDate: post.date,
+    createdAt: post.date,
+    updatedAt: post.modified,
+    featuredImageUrl: post._embedded?.['wp:featuredmedia']?.[0]?.source_url
+  }));
+}</div>
+                        </div>
+                    </div>
+
+                    <div id="static-json">
+                        <h3 class="subsection-title">Static JSON Setup</h3>
+                        <p class="text-block">
+                            For simple content management without a CMS, you can use static JSON files. This approach is perfect for small blogs or when you want full control over your content.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">public/api/content.json - Static Content</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">[
+  {
+    "id": "1",
+    "title": "Getting Started with AI Lodi",
+    "slug": "getting-started-with-ai-lodi",
+    "content": "# Welcome to AI Lodi\n\nThis is your first post content in Markdown format.\n\n## Features\n\n- Modern Next.js 14 architecture\n- TypeScript for type safety\n- Tailwind CSS for styling\n- SEO optimization built-in\n\n## Getting Started\n\n1. Customize your branding\n2. Connect your content source\n3. Deploy to Cloudflare Workers\n\nEnjoy building with AI Lodi!",
+    "metaDescription": "Learn how to get started with AI Lodi, the modern blog platform built with Next.js 14",
+    "seoTitle": "Getting Started with AI Lodi - Modern Blog Platform",
+    "keywords": ["ai lodi", "blog platform", "nextjs", "getting started"],
+    "author": "AI Lodi Team",
+    "categories": ["Getting Started", "Tutorial"],
+    "tags": ["welcome", "tutorial", "setup"],
+    "status": "published",
+    "publishDate": "2025-01-01T00:00:00Z",
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z",
+    "featuredImageUrl": "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg"
+  }
+]</div>
+                        </div>
+
+                        <div class="callout">
+                            <div class="callout-title">📝 Static JSON Tips</div>
+                            <div class="callout-content">
+                                <ul>
+                                    <li>Use proper JSON formatting and validate with tools like JSONLint</li>
+                                    <li>Keep content organized with consistent field naming</li>
+                                    <li>Use external image URLs (Pexels, Unsplash) for featured images</li>
+                                    <li>Write content in Markdown for rich formatting</li>
+                                    <li>Update the updatedAt field when making changes for proper caching</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="components">
+                    <h2 class="section-title">🧩 Component Customization</h2>
+                    
+                    <div id="navigation">
+                        <h3 class="subsection-title">Navigation Customization</h3>
+                        <p class="text-block">
+                            Customize the main navigation menu by editing the navigation items and styling. The navigation supports both desktop and mobile layouts with responsive design.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">components/navigation.tsx - Menu Items</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">const navigationItems = [
+  { name: 'Home', href: '/' },
+  { name: 'Articles', href: '/articles' },
+  { name: 'Categories', href: '/categories' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+  // Add your custom navigation items
+  { name: 'Services', href: '/services' },
+  { name: 'Portfolio', href: '/portfolio' },
+];
+
+// Custom logo/brand text
+const brandText = "Your Brand Name";</div>
+                        </div>
+                    </div>
+
+                    <div id="footer">
+                        <h3 class="subsection-title">Footer Customization</h3>
+                        <p class="text-block">
+                            Update footer links, social media accounts, and contact information to match your brand and business needs.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">components/footer.tsx - Footer Links</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">const footerLinks = {
+  company: [
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'Careers', href: '/careers' },
+    { name: 'Press', href: '/press' },
+  ],
+  legal: [
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Service', href: '/terms-of-service' },
+    { name: 'Cookie Policy', href: '/cookie-policy' },
+    { name: 'Disclaimer', href: '/disclaimer' },
+  ],
+  social: [
+    { name: 'Twitter', href: 'https://twitter.com/youraccount', icon: Twitter },
+    { name: 'LinkedIn', href: 'https://linkedin.com/company/yourcompany', icon: Linkedin },
+    { name: 'GitHub', href: 'https://github.com/youraccount', icon: Github },
+    { name: 'YouTube', href: 'https://youtube.com/@yourchannel', icon: Youtube },
+  ],
+};</div>
+                        </div>
+                    </div>
+
+                    <div id="hero">
+                        <h3 class="subsection-title">Hero Section Customization</h3>
+                        <p class="text-block">
+                            Customize the homepage hero section with your own headline, description, and call-to-action buttons.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">components/hero.tsx - Hero Content</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">export function Hero() {
+  return (
+    <section className="hero-section">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          {/* Badge */}
+          <div className="flex justify-center items-center gap-3 mb-6">
+            <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/20">
+              <Brain size={20} className="text-primary" />
+              <span className="text-sm font-medium text-primary">Your Badge Text</span>
+            </div>
+          </div>
+          
+          {/* Main Headline */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+            Your Compelling Headline
+          </h1>
+          
+          {/* Subtitle */}
+          <p className="text-lg sm:text-xl md:text-2xl mb-8 text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Your compelling subtitle that explains what you do and why visitors should care.
+          </p>
+          
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" asChild className="bg-primary hover:bg-primary/90">
+              <Link href="/get-started">
+                <Zap size={18} className="mr-2" />
+                Get Started
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/learn-more">
+                <Code size={18} className="mr-2" />
+                Learn More
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="seo">
+                    <h2 class="section-title">📊 SEO & Metadata Customization</h2>
+                    <p class="text-block">
+                        AI Lodi includes comprehensive SEO optimization out of the box. Customize meta tags, structured data, and social sharing settings for maximum search engine visibility.
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">app/layout.tsx - Global SEO Settings</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-content">export const metadata: Metadata = {
+  title: {
+    default: 'Your Site Name - Your Compelling Tagline',
+    template: '%s | Your Site Name'
+  },
+  description: 'Your comprehensive site description that includes target keywords and value proposition',
+  keywords: [
+    'your primary keyword',
+    'secondary keyword',
+    'industry terms',
+    'location keywords',
+    'service keywords'
+  ],
+  authors: [{ name: 'Your Name', url: 'https://yourdomain.com/about' }],
+  creator: 'Your Name or Company',
+  publisher: 'Your Company Name',
+  
+  // Open Graph for social sharing
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://yourdomain.com',
+    title: 'Your Site Name - Compelling Social Title',
+    description: 'Social-optimized description for better engagement',
+    siteName: 'Your Site Name',
+  },
+  
+  // Twitter Card settings
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Your Site Name - Twitter Optimized Title',
+    description: 'Twitter-specific description (max 200 chars)',
+    creator: '@yourtwitterhandle',
+    site: '@yourtwitterhandle',
+  },
+  
+  // Verification codes for search engines
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+    yahoo: 'your-yahoo-verification-code',
+  },
+};</div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">Structured Data Customization</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-content">// In app/layout.tsx - Organization Schema
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Your Organization Name",
+  "alternateName": "Your Brand Name",
+  "url": "https://yourdomain.com",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://yourdomain.com/logo.png",
+    "width": 512,
+    "height": 512
+  },
+  "description": "Your organization description",
+  "foundingDate": "2024",
+  "sameAs": [
+    "https://twitter.com/youraccount",
+    "https://linkedin.com/company/yourcompany",
+    "https://github.com/youraccount",
+    "https://youtube.com/@yourchannel"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "hello@yourdomain.com",
+    "availableLanguage": "English"
+  }
+};</div>
+                    </div>
+
+                    <div class="callout success">
+                        <div class="callout-title">🎯 SEO Best Practices</div>
+                        <div class="callout-content">
+                            <ul>
+                                <li><strong>Title Tags:</strong> Keep under 60 characters, include primary keyword</li>
+                                <li><strong>Meta Descriptions:</strong> 150-160 characters, compelling and keyword-rich</li>
+                                <li><strong>Keywords:</strong> Focus on 5-10 primary keywords, avoid keyword stuffing</li>
+                                <li><strong>Structured Data:</strong> Use JSON-LD format for better search engine understanding</li>
+                                <li><strong>Social Sharing:</strong> Optimize Open Graph and Twitter Card metadata</li>
+                                <li><strong>Performance:</strong> Ensure fast loading times and mobile optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="comments">
+                    <h2 class="section-title">💬 Comments & Newsletter System</h2>
+                    
+                    <div id="valine-setup">
+                        <h3 class="subsection-title">Valine Comments Setup</h3>
+                        <p class="text-block">
+                            AI Lodi includes an integrated Valine comments system powered by LeanCloud. This provides a secure, moderated commenting experience with spam protection and user management.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">LeanCloud Configuration</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content"># Valine Comments Configuration
+NEXT_PUBLIC_VALINE_APP_ID=your_leancloud_app_id
+NEXT_PUBLIC_VALINE_APP_KEY=your_leancloud_app_key
+NEXT_PUBLIC_VALINE_SERVER_URLS=https://your_app_id.api.lncldglobal.com</div>
+                        </div>
+
+                        <div class="callout">
+                            <div class="callout-title">🔧 LeanCloud Setup Steps</div>
+                            <div class="callout-content">
+                                <ol>
+                                    <li>Create account at <a href="https://leancloud.app/" target="_blank">LeanCloud</a></li>
+                                    <li>Create new application</li>
+                                    <li>Go to Settings > App Keys</li>
+                                    <li>Copy App ID, App Key, and Server URL</li>
+                                    <li>Add to your environment variables</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="security">
+                        <h3 class="subsection-title">Security Features</h3>
+                        <p class="text-block">
+                            The Valine comments system includes multiple security layers to prevent spam and abuse while maintaining a positive user experience.
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-title">components/valine-comments.tsx - Security Configuration</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <div class="code-content">new window.Valine({
+  el: valineRef.current,
+  appId: appId,
+  appKey: appKey,
+  serverURLs: serverURLs,
+  
+  // Security Settings
+  verify: true,                    // Enable math captcha
+  visitor: true,                   // Enable visitor tracking
+  recordIP: true,                  // Record IP addresses for moderation
+  enableQQ: false,                 // Disable QQ integration for privacy
+  
+  // User Requirements
+  requiredFields: ['nick', 'mail'], // Require name and email
+  meta: ['nick', 'mail', 'link'],   // User input fields
+  
+  // Content Settings
+  placeholder: 'Share your thoughts about this article... (Math verification required)',
+  pageSize: 10,                    // Comments per page
+  lang: 'en',                      // Language
+  
+  // Avatar Settings (for privacy)
+  avatar: 'retro',                 // Use generated avatars
+  
+  // Moderation
+  highlight: true,                 // Code highlighting
+  mathJax: false,                  // Disable MathJax for security
+});</div>
+                        </div>
+
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <div class="feature-icon">🔢</div>
+                                <div class="feature-content">
+                                    <h4>Math Captcha</h4>
+                                    <p>Simple math problems prevent automated spam while remaining user-friendly for humans.</p>
+                                </div>
+                            </li>
+                            <li class="feature-item">
+                                <div class="feature-icon">🛡️</div>
+                                <div class="feature-content">
+                                    <h4>Content Moderation</h4>
+                                    <p>Real-time filtering and admin dashboard for reviewing and moderating comments.</p>
+                                </div>
+                            </li>
+                            <li class="feature-item">
+                                <div class="feature-icon">⏱️</div>
+                                <div class="feature-content">
+                                    <h4>Rate Limiting</h4>
+                                    <p>Prevents comment flooding and DDoS attacks with configurable limits per user/IP.</p>
+                                </div>
+                            </li>
+                            <li class="feature-item">
+                                <div class="feature-icon">👤</div>
+                                <div class="feature-content">
+                                    <h4>User Verification</h4>
+                                    <p>Email validation and IP tracking for user accountability and spam prevention.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="deployment">
+                    <h2 class="section-title">🚀 Deployment Configuration</h2>
+                    <p class="text-block">
+                        AI Lodi is optimized for Cloudflare Workers deployment, providing edge computing capabilities for global performance. Configure your deployment settings and environment variables for production.
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">wrangler.toml - Deployment Configuration</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-content">name = "your-blog-name"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./out"
+not_found_handling = "single-page-application"
+
+[env.production]
+name = "your-blog-production"
+
+[env.staging]
+name = "your-blog-staging"</div>
+                    </div>
+
+                    <div class="callout success">
+                        <div class="callout-title">🎯 Deployment Steps</div>
+                        <div class="callout-content">
+                            <ol>
+                                <li><strong>Build:</strong> <code>npm run build</code></li>
+                                <li><strong>Deploy:</strong> <code>npm run deploy</code></li>
+                                <li><strong>Environment Variables:</strong> Set in Cloudflare Dashboard</li>
+                                <li><strong>Custom Domain:</strong> Configure in Cloudflare Pages</li>
+                                <li><strong>SSL Certificate:</strong> Automatic with Cloudflare</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Environment Variable</th>
+                                    <th>Description</th>
+                                    <th>Required</th>
+                                    <th>Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>NEXT_PUBLIC_SITE_URL</code></td>
+                                    <td>Your production domain URL</td>
+                                    <td>Yes</td>
+                                    <td>https://yourdomain.com</td>
+                                </tr>
+                                <tr>
+                                    <td><code>NEXT_PUBLIC_API_URL</code></td>
+                                    <td>Your content API endpoint</td>
+                                    <td>Yes</td>
+                                    <td>https://api.yourdomain.com/posts</td>
+                                </tr>
+                                <tr>
+                                    <td><code>NEXT_PUBLIC_GA_ID</code></td>
+                                    <td>Google Analytics tracking ID</td>
+                                    <td>No</td>
+                                    <td>G-XXXXXXXXXX</td>
+                                </tr>
+                                <tr>
+                                    <td><code>NEXT_PUBLIC_VALINE_APP_ID</code></td>
+                                    <td>LeanCloud App ID for comments</td>
+                                    <td>No</td>
+                                    <td>k6AP8iZmYN2CAEJetivhCzyp</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="pwa">
+                    <h2 class="section-title">📱 PWA Features</h2>
+                    <p class="text-block">
+                        AI Lodi includes Progressive Web App (PWA) features for app-like experiences on mobile devices. Customize the app manifest and service worker settings.
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">public/manifest.json - PWA Configuration</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-content">{
+  "name": "Your App Name - Full Name for Install Prompt",
+  "short_name": "Your App",
+  "description": "Your app description for app stores and install prompts",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#your-brand-color",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["technology", "education", "news", "productivity"],
+  
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Your App Desktop View"
+    },
+    {
+      "src": "/screenshot-narrow.png",
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Your App Mobile View"
+    }
+  ]
+}</div>
+                    </div>
+
+                    <div class="callout">
+                        <div class="callout-title">📱 PWA Assets Needed</div>
+                        <div class="callout-content">
+                            <ul>
+                                <li><strong>Icons:</strong> 192x192px and 512x512px PNG files</li>
+                                <li><strong>Screenshots:</strong> Desktop (1280x720px) and mobile (640x1136px) views</li>
+                                <li><strong>Maskable Icons:</strong> Icons that work with adaptive icon systems</li>
+                                <li><strong>Theme Colors:</strong> Match your brand colors for system integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="advanced">
+                    <h2 class="section-title">⚡ Advanced Customizations</h2>
+                    <p class="text-block">
+                        For advanced users, AI Lodi provides extensive customization options including custom API transformations, advanced SEO configurations, and performance optimizations.
+                    </p>
+
+                    <h3 class="subsection-title">Custom API Data Transformation</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">lib/content.ts - Custom API Transformation</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-content">// Transform your API data to match BlogPost interface
+function transformPost(apiPost: any): BlogPost {
+  return {
+    id: apiPost.id || apiPost._id || apiPost.uuid,
+    title: apiPost.title || apiPost.name || apiPost.headline,
+    slug: apiPost.slug || apiPost.url_slug || generateSlug(apiPost.title),
+    content: apiPost.content || apiPost.body || apiPost.description,
+    metaDescription: apiPost.excerpt || apiPost.summary || apiPost.description?.substring(0, 160),
+    seoTitle: apiPost.seo_title || apiPost.meta_title || apiPost.title,
+    keywords: apiPost.keywords || apiPost.tags || extractKeywords(apiPost.content),
+    author: apiPost.author?.name || apiPost.author || apiPost.created_by || 'Anonymous',
+    categories: transformCategories(apiPost.categories || apiPost.category),
+    tags: apiPost.tags || apiPost.labels || [],
+    status: apiPost.published || apiPost.status === 'published' ? 'published' : 'draft',
+    publishDate: apiPost.published_at || apiPost.publish_date || apiPost.created_at,
+    createdAt: apiPost.created_at || apiPost.date_created,
+    updatedAt: apiPost.updated_at || apiPost.date_modified || apiPost.created_at,
+    featuredImageUrl: extractFeaturedImage(apiPost)
+  };
+}
+
+// Helper functions for data transformation
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .trim();
+}
+
+function extractKeywords(content: string): string[] {
+  // Extract keywords from content using NLP or simple word frequency
+  const words = content.toLowerCase().match(/\b\w{4,}\b/g) || [];
+  const frequency = words.reduce((acc, word) => {
+    acc[word] = (acc[word] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+  
+  return Object.entries(frequency)
+    .sort(([,a], [,b]) => b - a)
+    .slice(0, 10)
+    .map(([word]) => word);
+}</div>
+                    </div>
+
+                    <h3 class="subsection-title">Performance Optimization</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">next.config.js - Performance Settings</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-content">/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Performance optimizations
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+  },
+  
+  // Enable static export for edge deployment
+  output: 'export',
+  trailingSlash: true,
+  
+  // Image optimization for Cloudflare
+  images: {
+    unoptimized: true,
+    formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    domains: [
+      'your-cms-domain.com',
+      'images.pexels.com',
+      'images.unsplash.com',
+      'your-cdn-domain.com'
+    ],
+  },
+
+  // Webpack optimizations
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      };
+    }
+    return config;
+  },
+};
+
+module.exports = nextConfig;</div>
+                    </div>
+
+                    <h3 class="subsection-title">Custom Analytics Integration</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-title">components/analytics.tsx - Custom Analytics</span>
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <div class="code-content">// Custom analytics component for multiple providers
+export function Analytics() {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
+  
+  return (
+    <>
+      {/* Google Analytics */}
+      {gaId && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}', {
+                  page_path: window.location.pathname,
+                  anonymize_ip: true,
+                  allow_google_signals: false,
+                });
+              `,
+            }}
+          />
+        </>
+      )}
+      
+      {/* Plausible Analytics */}
+      {plausibleDomain && (
+        <script
+          defer
+          data-domain={plausibleDomain}
+          src="https://plausible.io/js/script.js"
+        />
+      )}
+      
+      {/* Custom Analytics Events */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            // Track custom events
+            function trackEvent(eventName, properties = {}) {
+              // Google Analytics
+              if (window.gtag) {
+                window.gtag('event', eventName, properties);
+              }
+              
+              // Plausible
+              if (window.plausible) {
+                window.plausible(eventName, { props: properties });
+              }
+              
+              // Custom analytics
+              console.log('Analytics Event:', eventName, properties);
+            }
+            
+            // Make trackEvent available globally
+            window.trackEvent = trackEvent;
+          `,
+        }}
+      />
+    </>
+  );
+}</div>
+                    </div>
+
+                    <div class="callout warning">
+                        <div class="callout-title">⚠️ Advanced Customization Notes</div>
+                        <div class="callout-content">
+                            <ul>
+                                <li>Always test customizations in a staging environment first</li>
+                                <li>Keep backups of working configurations before making changes</li>
+                                <li>Monitor performance impact of custom code and optimizations</li>
+                                <li>Follow TypeScript best practices for type safety</li>
+                                <li>Document your customizations for future maintenance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <div style="margin-top: 4rem; padding: 2rem; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); border-radius: var(--radius-xl); text-align: center; color: white;">
+                    <h3 style="margin-bottom: 1rem; font-size: var(--font-size-2xl); font-weight: 700;">Ready to Customize Your AI Lodi Blog?</h3>
+                    <p style="margin-bottom: 1.5rem; opacity: 0.9; font-size: var(--font-size-lg);">
+                        This comprehensive guide covers everything you need to transform AI Lodi into your perfect blog platform. 
+                        Need additional help or custom development?
+                    </p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="mailto:support@ailodi.tech" class="btn" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white;">
+                            📧 Get Support
+                        </a>
+                        <a href="https://ailodi.tech/docs" class="btn" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white;">
+                            📚 Full Documentation
+                        </a>
+                        <a href="https://ailodi.tech/purchase" class="btn" style="background: white; color: var(--accent-primary);">
+                            🚀 Get AI Lodi
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.parentElement.nextElementSibling;
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = 'var(--success)';
+                button.style.color = 'white';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                    button.style.color = '';
+                }, 2000);
+            });
+        }
+
+        function toggleTheme() {
+            const button = document.querySelector('.theme-toggle');
+            const isDark = document.documentElement.style.getPropertyValue('--bg-primary') === 'var(--bg-primary-dark)';
+            
+            if (isDark) {
+                // Switch to light mode
+                document.documentElement.style.setProperty('--bg-primary', '#ffffff');
+                document.documentElement.style.setProperty('--bg-secondary', '#f8f9fa');
+                document.documentElement.style.setProperty('--bg-tertiary', '#f1f3f4');
+                document.documentElement.style.setProperty('--text-primary', '#1f2937');
+                document.documentElement.style.setProperty('--text-secondary', '#6b7280');
+                document.documentElement.style.setProperty('--text-tertiary', '#9ca3af');
+                document.documentElement.style.setProperty('--border-light', '#e5e7eb');
+                document.documentElement.style.setProperty('--border-medium', '#d1d5db');
+                document.documentElement.style.setProperty('--code-bg', '#f3f4f6');
+                document.documentElement.style.setProperty('--code-border', '#e5e7eb');
+                button.textContent = '🌙';
+            } else {
+                // Switch to dark mode
+                document.documentElement.style.setProperty('--bg-primary', 'var(--bg-primary-dark)');
+                document.documentElement.style.setProperty('--bg-secondary', 'var(--bg-secondary-dark)');
+                document.documentElement.style.setProperty('--bg-tertiary', 'var(--bg-tertiary-dark)');
+                document.documentElement.style.setProperty('--text-primary', 'var(--text-primary-dark)');
+                document.documentElement.style.setProperty('--text-secondary', 'var(--text-secondary-dark)');
+                document.documentElement.style.setProperty('--text-tertiary', 'var(--text-tertiary-dark)');
+                document.documentElement.style.setProperty('--border-light', 'var(--border-light-dark)');
+                document.documentElement.style.setProperty('--border-medium', 'var(--border-medium-dark)');
+                document.documentElement.style.setProperty('--code-bg', 'var(--code-bg-dark)');
+                document.documentElement.style.setProperty('--code-border', 'var(--code-border-dark)');
+                button.textContent = '☀️';
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(link.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        
+                        // Update active state
+                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Update active navigation on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id], div[id]');
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                const id = section.getAttribute('id');
+                
+                if (scrollPos >= top && scrollPos <= bottom) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle (if needed)
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        // Add mobile styles for sidebar
+        const style = document.createElement('style');
+        style.textContent = `
+            @media (max-width: 1024px) {
+                .sidebar {
+                    position: fixed;
+                    top: 73px;
+                    left: -320px;
+                    width: 320px;
+                    height: calc(100vh - 73px);
+                    z-index: 1000;
+                    transition: left 0.3s ease;
+                }
+                
+                .sidebar.mobile-open {
+                    left: 0;
+                }
+                
+                .sidebar::before {
+                    content: '';
+                    position: fixed;
+                    top: 0;
+                    left: 320px;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0, 0, 0, 0.5);
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.3s ease;
+                }
+                
+                .sidebar.mobile-open::before {
+                    opacity: 1;
+                    pointer-events: all;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

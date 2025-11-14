@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <div class="header-content">
+                    <h1>Dashboard</h1>
+                    <p>Admin CMS</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+                    <span class="theme-icon sun-icon"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon moon-icon"><i class="fa-solid fa-moon"></i></span>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <div class="sidebar-overlay" id="sidebar-overlay"></div>
+            <nav class="tab-navigation" id="tab-navigation">
+                <div class="nav-section">
+                    <div class="nav-section-title">Dashboard</div>
+                    <button class="tab-btn active" data-tab="overview">
+                        <span class="tab-icon"><i class="fa-solid fa-chart-column"></i></span>
+                        <span class="tab-text">Overview</span>
+                    </button>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Content</div>
+                    <button class="tab-btn" data-tab="manage">
+                        <span class="tab-icon"><i class="fa-solid fa-folder-open"></i></span>
+                        <span class="tab-text">Manage Content</span>
+                    </button>
+                    <button class="tab-btn" data-tab="create">
+                        <span class="tab-icon"><i class="fa-solid fa-plus"></i></span>
+                        <span class="tab-text">Create Content</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tips">
+                        <span class="tab-icon"><i class="fa-solid fa-lightbulb"></i></span>
+                        <span class="tab-text">Content Tips</span>
+                    </button>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">System</div>
+                    <button class="tab-btn" data-tab="settings">
+                        <span class="tab-icon"><i class="fa-solid fa-gear"></i></span>
+                        <span class="tab-text">Settings</span>
+                    </button>
+                </div>
+            </nav>
+
+            <main class="dashboard-content">
+                <!-- Overview Tab -->
+                <div id="overview-tab" class="tab-content active">
+                    <div class="page-header">
+                        <h1 class="page-title">Dashboard Overview</h1>
+                        <p class="page-description">Get insights into your content performance and statistics</p>
+                    </div>
+                    
+                    <div class="overview-cards">
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div class="stat-icon"><i class="fa-solid fa-file-lines"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="total-content">0</h3>
+                                    <p>Total Content</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="published-content">0</h3>
+                                    <p>Published</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div class="stat-icon"><i class="fa-solid fa-file-pen"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="draft-content">0</h3>
+                                    <p>Drafts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div class="stat-icon"><i class="fa-solid fa-tags"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="total-categories">0</h3>
+                                    <p>Categories</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-content">
+                        <h2>Recent Content</h2>
+                        <div id="recent-content-list" class="content-list">
+                            <!-- Recent content will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Content Tab -->
+                <div id="manage-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1 class="page-title">Manage Content</h1>
+                        <p class="page-description">View, edit, and organize your content library</p>
+                    </div>
+                    
+                    <div class="manage-header">
+                        <div class="manage-header-content">
+                            <h2 class="manage-title">Content Library</h2>
+                            <div class="manage-actions">
+                                <div class="filter-group">
+                                    <select id="status-filter" class="filter-select">
+                                        <option value="all">All Status</option>
+                                        <option value="published">Published</option>
+                                        <option value="draft">Draft</option>
+                                    </select>
+                                    <input type="text" id="search-filter" class="filter-input" placeholder="Search content...">
+                                </div>
+                                <div class="action-group">
+                                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                                    <button id="import-btn" class="btn btn-secondary">
+                                        <span class="btn-icon"><i class="fa-solid fa-download"></i></span>
+                                        Import Content
+                                    </button>
+                                    <button id="export-btn" class="btn btn-primary">
+                                        <span class="btn-icon"><i class="fa-solid fa-upload"></i></span>
+                                        Export Content
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table id="content-table" class="content-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Publish Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="content-table-body">
+                                <!-- Content rows will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Create Content Tab -->
+                <div id="create-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1 class="page-title" id="form-title">Create New Content</h1>
+                        <p class="page-description">Add new content to your library with rich formatting support</p>
+                    </div>
+
+                    <form id="content-form" class="content-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="title">Title *</label>
+                                <input type="text" id="title" name="title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="slug">Slug *</label>
+                                <input type="text" id="slug" name="slug" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="author">Author</label>
+                                <input type="text" id="author" name="author">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select id="status" name="status">
+                                    <option value="draft">Draft</option>
+                                    <option value="published">Published</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="featuredImageUrl">Featured Image URL</label>
+                                <input type="url" id="featuredImageUrl" name="featuredImageUrl">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="metaDescription">Meta Description</label>
+                                <textarea id="metaDescription" name="metaDescription" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="seoTitle">SEO Title</label>
+                                <input type="text" id="seoTitle" name="seoTitle">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="keywords">Keywords (comma-separated)</label>
+                                <input type="text" id="keywords" name="keywords">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="categories">Categories (comma-separated)</label>
+                                <input type="text" id="categories" name="categories">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tags">Tags (comma-separated)</label>
+                                <input type="text" id="tags" name="tags">
+                            </div>
+                        </div>
+
+                        <div class="content-editor">
+                            <div class="editor-header">
+                                <h3>Content (Markdown)</h3>
+                                <button type="button" id="preview-btn" class="btn btn-secondary">
+                                    <span class="btn-icon"><i class="fa-solid fa-eye"></i></span>
+                                    Preview Markdown
+                                </button>
+                            </div>
+                            
+                            <div class="editor-container">
+                                <div class="editor-input-wrapper">
+                                    <div class="markdown-toolbar">
+                                        <button type="button" class="toolbar-btn" data-action="bold" title="Bold">
+                                            <i class="fa-solid fa-bold"></i>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-action="italic" title="Italic">
+                                            <i class="fa-solid fa-italic"></i>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-action="heading" title="Heading">
+                                            <i class="fa-solid fa-heading"></i>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-action="link" title="Link">
+                                            <i class="fa-solid fa-link"></i>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-action="image" title="Image">
+                                            <i class="fa-solid fa-image"></i>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-action="code" title="Code">
+                                            <i class="fa-solid fa-code"></i>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-action="quote" title="Quote">
+                                            <i class="fa-solid fa-quote-left"></i>
+                                        </button>
+                                        <button type="button" class="toolbar-btn" data-action="list" title="List">
+                                            <i class="fa-solid fa-list"></i>
+                                        </button>
+                                    </div>
+                                    <textarea id="content" name="content" placeholder="Write your content in Markdown..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span id="submit-text">Create Content</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tips Tab -->
+                <div id="tips-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1 class="page-title">Content Creation Tips</h1>
+                        <p class="page-description">Learn how to create successful blog content with our comprehensive guide</p>
+                    </div>
+
+                    <div class="tips-sections">
+                        <div class="tips-section">
+                            <h3><i class="fa-solid fa-pen-to-square"></i> Essential Content Fields</h3>
+                            <p class="section-description">Understanding each field and how to use them effectively</p>
+                            
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-bullseye"></i> Title</h4>
+                                <p><strong>Why it matters:</strong> Your title is the first thing readers see and is crucial for SEO. A compelling title can increase click-through rates by up to 500%.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Keep it between 50-60 characters for optimal SEO</li>
+                                    <li>Include your primary keyword naturally</li>
+                                    <li>Make it compelling and benefit-driven</li>
+                                    <li>Use numbers, questions, or power words when appropriate</li>
+                                </ul>
+                                <p><strong>Examples:</strong> "10 Proven Strategies to Boost Your Blog Traffic" or "How to Create Engaging Content That Converts"</p>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-link"></i> Slug</h4>
+                                <p><strong>Why it matters:</strong> The slug is part of your URL and affects both SEO and user experience. It's automatically generated from your title but can be customized.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Keep it short and descriptive</li>
+                                    <li>Use hyphens to separate words</li>
+                                    <li>Include your main keyword</li>
+                                    <li>Avoid stop words (the, and, or, but, etc.)</li>
+                                </ul>
+                                <p><strong>Example:</strong> "boost-blog-traffic-strategies" instead of "10-proven-strategies-to-boost-your-blog-traffic"</p>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-file-lines"></i> Content (Markdown)</h4>
+                                <p><strong>Why it matters:</strong> This is your main content where you provide value to readers. Quality content keeps readers engaged and improves search rankings.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Start with a compelling introduction that hooks readers</li>
+                                    <li>Use headings (H2, H3) to structure your content</li>
+                                    <li>Write in short paragraphs (2-3 sentences max)</li>
+                                    <li>Include bullet points and numbered lists for readability</li>
+                                    <li>Add relevant images and examples</li>
+                                    <li>End with a clear call-to-action</li>
+                                </ul>
+                                <p><strong>Markdown tip:</strong> Use the toolbar above the editor for quick formatting!</p>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-image"></i> Featured Image URL</h4>
+                                <p><strong>Why it matters:</strong> Visual content increases engagement by 94%. Your featured image appears in social shares and can significantly impact click-through rates.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Use high-quality, relevant images (minimum 1200x630px)</li>
+                                    <li>Ensure the image relates to your content</li>
+                                    <li>Consider adding text overlay for social media</li>
+                                    <li>Use free resources like Unsplash, Pexels, or Pixabay</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tips-section">
+                            <h3><i class="fa-solid fa-magnifying-glass"></i> SEO Optimization</h3>
+                            <p class="section-description">Optimize your content for search engines and better discoverability</p>
+                            
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-clipboard"></i> Meta Description</h4>
+                                <p><strong>Why it matters:</strong> This appears in search results below your title. A compelling meta description can improve your click-through rate from search results.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Keep it between 150-160 characters</li>
+                                    <li>Include your primary keyword</li>
+                                    <li>Write a compelling summary that encourages clicks</li>
+                                    <li>Make it unique for each post</li>
+                                </ul>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-tag"></i> SEO Title</h4>
+                                <p><strong>Why it matters:</strong> This is the title that appears in search results and browser tabs. It can be different from your main title to optimize for search.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Include your primary keyword at the beginning</li>
+                                    <li>Keep it under 60 characters</li>
+                                    <li>Make it descriptive and compelling</li>
+                                    <li>Include your brand name if space allows</li>
+                                </ul>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-key"></i> Keywords</h4>
+                                <p><strong>Why it matters:</strong> Keywords help search engines understand your content topic and match it with user searches.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Research keywords using tools like Google Keyword Planner</li>
+                                    <li>Focus on long-tail keywords (3-4 words)</li>
+                                    <li>Include 3-5 relevant keywords per post</li>
+                                    <li>Use keywords naturally in your content</li>
+                                </ul>
+                                <p><strong>Example:</strong> "content marketing, blog writing, SEO tips, digital marketing strategy"</p>
+                            </div>
+                        </div>
+
+                        <div class="tips-section">
+                            <h3><i class="fa-solid fa-tags"></i> Organization & Metadata</h3>
+                            <p class="section-description">Properly categorize and tag your content for better organization</p>
+                            
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-folder"></i> Categories</h4>
+                                <p><strong>Why it matters:</strong> Categories help organize your content into broad topics, making it easier for readers to find related content.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Use 1-2 categories per post maximum</li>
+                                    <li>Create broad, evergreen categories</li>
+                                    <li>Keep category names simple and descriptive</li>
+                                    <li>Maintain consistency across your content</li>
+                                </ul>
+                                <p><strong>Examples:</strong> "Web Development, Digital Marketing, Business Tips"</p>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-hashtag"></i> Tags</h4>
+                                <p><strong>Why it matters:</strong> Tags are more specific than categories and help readers discover related content on similar subtopics.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Use 5-10 relevant tags per post</li>
+                                    <li>Be specific and descriptive</li>
+                                    <li>Use existing tags when possible to create connections</li>
+                                    <li>Think about what readers might search for</li>
+                                </ul>
+                                <p><strong>Examples:</strong> "react, javascript, tutorial, beginners, frontend"</p>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-user-pen"></i> Author</h4>
+                                <p><strong>Why it matters:</strong> Author attribution builds trust and authority. It helps readers connect with the person behind the content.</p>
+                                <p><strong>Best practices:</strong></p>
+                                <ul>
+                                    <li>Use a consistent author name across all posts</li>
+                                    <li>Consider using your real name for personal branding</li>
+                                    <li>If multiple authors, maintain consistency in style</li>
+                                </ul>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-chart-line"></i> Status</h4>
+                                <p><strong>Why it matters:</strong> Content status helps you manage your publishing workflow and content lifecycle.</p>
+                                <p><strong>Options:</strong></p>
+                                <ul>
+                                    <li><strong>Draft:</strong> Content is being worked on and not visible to readers</li>
+                                    <li><strong>Published:</strong> Content is live and visible to your audience</li>
+                                </ul>
+                                <p><strong>Tip:</strong> Use draft status to save work in progress and review before publishing.</p>
+                            </div>
+                        </div>
+
+                        <div class="tips-section">
+                            <h3><i class="fa-solid fa-rocket"></i> Content Success Strategies</h3>
+                            <p class="section-description">Advanced tips to make your content stand out and perform better</p>
+                            
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-chart-simple"></i> Engagement Optimization</h4>
+                                <ul>
+                                    <li>Write compelling introductions that hook readers immediately</li>
+                                    <li>Use storytelling techniques to make content more relatable</li>
+                                    <li>Include actionable tips and practical advice</li>
+                                    <li>Add relevant examples and case studies</li>
+                                    <li>End with questions to encourage comments</li>
+                                </ul>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-mobile-screen"></i> Readability Best Practices</h4>
+                                <ul>
+                                    <li>Use short sentences and paragraphs</li>
+                                    <li>Include plenty of white space</li>
+                                    <li>Use bullet points and numbered lists</li>
+                                    <li>Add subheadings every 200-300 words</li>
+                                    <li>Write in a conversational tone</li>
+                                </ul>
+                            </div>
+
+                            <div class="tip-item">
+                                <h4><i class="fa-solid fa-calendar-days"></i> Content Planning</h4>
+                                <ul>
+                                    <li>Research your audience's pain points and interests</li>
+                                    <li>Create content that solves specific problems</li>
+                                    <li>Plan content series to keep readers coming back</li>
+                                    <li>Update and refresh older content regularly</li>
+                                    <li>Analyze performance and double down on what works</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1 class="page-title">Settings</h1>
+                        <p class="page-description">Configure your content management system preferences and view data</p>
+                    </div>
+
+                    <div class="settings-sections">
+                        <div class="settings-section">
+                            <h3><i class="fa-solid fa-code"></i> JSON Data Preview</h3>
+                            <p class="section-description">View your current content data in JSON format</p>
+                            <div class="json-preview-area">
+                                <div class="json-preview-header">
+                                    <button id="copy-json-btn" class="btn btn-secondary btn-small">
+                                        <span class="btn-icon"><i class="fa-solid fa-copy"></i></span>
+                                        Copy JSON
+                                    </button>
+                                </div>
+                                <pre><code id="current-data-json">Loading...</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3><i class="fa-solid fa-database"></i> System Backup & Restore</h3>
+                            <p class="section-description">Backup your entire CMS data (content + settings) or restore from a previous backup</p>
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>System Data Management</label>
+                                    <div class="button-group">
+                                        <button type="button" class="btn btn-secondary" id="backup-data">
+                                            <span class="btn-icon"><i class="fa-solid fa-download"></i></span>
+                                            Create System Backup
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="restore-data">
+                                            <span class="btn-icon"><i class="fa-solid fa-upload"></i></span>
+                                            Restore from Backup
+                                        </button>
+                                        <button type="button" class="btn btn-danger" id="clear-data">
+                                            <span class="btn-icon"><i class="fa-solid fa-trash"></i></span>
+                                            Clear All Data
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Markdown Preview Modal -->
+    <div id="preview-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Markdown Preview</h3>
+                <button type="button" id="close-modal" class="modal-close">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div id="markdown-preview" class="preview-content">
+                    <p class="preview-placeholder">Start typing to see your content preview...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Preview Modal -->
+    <div id="content-preview-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 id="content-preview-title">Content Preview</h3>
+                <button type="button" id="close-content-preview" class="modal-close">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div id="content-preview-content" class="preview-content">
+                    <p class="preview-placeholder">Loading content...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
