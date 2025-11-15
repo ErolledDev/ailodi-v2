@@ -24,21 +24,36 @@ export function OverviewTab() {
         // Fetch posts count from GitHub
         const posts = await fetchPostsFromGitHub();
         
-        // Fetch comments count from Firebase
-        const commentsRef = collection(db, 'comments');
-        const allComments = await getDocs(commentsRef);
-        const pendingQuery = query(commentsRef, where('approved', '==', false));
-        const pendingComments = await getDocs(pendingQuery);
+        // Firebase is optional - only fetch if configured
+        let commentsCount = 0;
+        let subscribersCount = 0;
+        let pendingComments = 0;
 
-        // Fetch subscribers count from Firebase
-        const subscribersRef = collection(db, 'subscribers');
-        const subscribers = await getDocs(subscribersRef);
+        if (process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID) {
+          try {
+            // Fetch comments count from Firebase
+            const commentsRef = collection(db, 'comments');
+            const allComments = await getDocs(commentsRef);
+            const pendingQuery = query(commentsRef, where('approved', '==', false));
+            const pendingCommentsDocs = await getDocs(pendingQuery);
+
+            // Fetch subscribers count from Firebase
+            const subscribersRef = collection(db, 'subscribers');
+            const subscribers = await getDocs(subscribersRef);
+
+            commentsCount = allComments.size;
+            subscribersCount = subscribers.size;
+            pendingComments = pendingCommentsDocs.size;
+          } catch (firebaseError) {
+            console.warn('Firebase not configured - skipping stats:', firebaseError);
+          }
+        }
 
         setStats({
           postsCount: posts.length,
-          commentsCount: allComments.size,
-          subscribersCount: subscribers.size,
-          pendingComments: pendingComments.size,
+          commentsCount,
+          subscribersCount,
+          pendingComments,
         });
       } catch (error) {
         console.error('Error fetching stats:', error);

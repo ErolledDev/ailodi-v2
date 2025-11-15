@@ -10,9 +10,9 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   
-  // Enable static export for Cloudflare Workers compatibility
-  output: 'export',
-  trailingSlash: true,
+  // Enable static export for Cloudflare Workers compatibility (disabled in dev for middleware)
+  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
+  trailingSlash: process.env.NODE_ENV === 'production',
   
   // Disable caching during build for fresh content
   onDemandEntries: {

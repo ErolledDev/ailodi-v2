@@ -1,6 +1,5 @@
 import type { BlogPost } from '@/types/blog';
-
-const API_URL = 'https://blogform.netlify.app/api/content.json';
+import { fetchPostsFromGitHub } from './github';
 
 interface SearchResult {
   posts: BlogPost[];
@@ -8,97 +7,25 @@ interface SearchResult {
   errorMessage?: string;
 }
 
-async function fetchWithRetry(
-  url: string, 
-  options: RequestInit = {}, 
-  retries = 5
-): Promise<Response> {
-  for (let i = 0; i < retries; i++) {
-    try {
-      // Remove cache-busting parameters to ensure static URL
-      const cleanUrl = new URL(url);
-      cleanUrl.searchParams.delete('_t');
-      cleanUrl.searchParams.delete('_r');
-      const staticUrl = cleanUrl.toString();
-      
-      // Filter out dynamic cache headers from options
-      const filteredHeaders = { ...options.headers };
-      if (filteredHeaders && typeof filteredHeaders === 'object') {
-        delete (filteredHeaders as any)['Cache-Control'];
-        delete (filteredHeaders as any)['Pragma'];
-        delete (filteredHeaders as any)['Expires'];
-      }
-      
-      // Use static fetch configuration for build-time caching
-      const response = await fetch(staticUrl, {
-        ...options,
-        cache: 'force-cache', // Force static caching for build
-        headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'AI-Lodi-Blog/1.0',
-          ...filteredHeaders,
-        },
-      });
-      
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      return response;
-    } catch (err) {
-      // Only log in development
-      if (process.env.NODE_ENV === 'development') {
-        console.error(`🔄 BUILD: Fetch attempt ${i + 1} failed:`, err);
-      }
-      if (i === retries - 1) throw err;
-      await new Promise(res => setTimeout(res, 2000 * (i + 1))); // Exponential backoff
-    }
-  }
-  throw new Error('Max retries reached');
-}
-
 export async function getAllContent(options: RequestInit = {}): Promise<BlogPost[]> {
   try {
     if (process.env.NODE_ENV === 'development') {
-      console.log('🔄 BUILD: Fetching content from API...');
+      console.log('🔄 BUILD: Fetching posts from GitHub...');
     }
     
-    const response = await fetchWithRetry(API_URL, {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'AI-Lodi-Blog/1.0',
-      },
-      ...options,
-    });
-    
-    const data = await response.json();
-    
-    // Validate data structure
-    if (!Array.isArray(data)) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('❌ BUILD: API returned non-array data:', typeof data);
-      }
-      return [];
-    }
-    
-    const publishedPosts = data.filter((post: any) => {
-      // Validate post structure
-      if (!post || typeof post !== 'object') return false;
-      if (!post.id || !post.title || !post.slug || post.status !== 'published') return false;
-      return true;
-    });
+    const posts = await fetchPostsFromGitHub();
     
     if (process.env.NODE_ENV === 'development') {
-      console.log(`📚 BUILD: Successfully fetched ${publishedPosts.length} published posts`);
-      console.log(`📝 BUILD: Latest posts:`, publishedPosts.slice(0, 3).map((p: BlogPost) => p.title));
+      console.log(`📚 BUILD: Successfully fetched ${posts.length} posts from GitHub`);
+      if (posts.length > 0) {
+        console.log(`📝 BUILD: Latest posts:`, posts.slice(0, 3).map((p: BlogPost) => p.title));
+      }
     }
     
-    // Sort by updated date to ensure consistent ordering
-    const sortedPosts = publishedPosts.sort((a: BlogPost, b: BlogPost) => 
-      new Date(b.updatedAt || b.publishDate).getTime() - new Date(a.updatedAt || a.publishDate).getTime()
-    );
-    
-    return sortedPosts;
+    return posts;
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
-      console.error('❌ BUILD: Error fetching content:', error);
+      console.error('❌ BUILD: Error fetching posts from GitHub:', error);
     }
     return [];
   }
@@ -107,44 +34,24 @@ export async function getAllContent(options: RequestInit = {}): Promise<BlogPost
 export async function getContentBySlug(slug: string): Promise<BlogPost | null> {
   try {
     if (process.env.NODE_ENV === 'development') {
-      console.log(`🔍 BUILD: Fetching content for slug: ${slug}`);
+      console.log(`🔍 BUILD: Fetching post: ${slug}`);
     }
     
-    const response = await fetchWithRetry(API_URL, {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'AI-Lodi-Blog/1.0',
-      },
-    });
-    
-    const data = await response.json();
-    
-    if (!Array.isArray(data)) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('❌ BUILD: API returned non-array data for slug fetch');
-      }
-      return null;
-    }
-    
-    const publishedPosts = data.filter((post: any) => 
-      post && typeof post === 'object' && post.status === 'published'
-    );
-    
-    const post = publishedPosts.find((p: BlogPost) => p.slug === slug);
+    const posts = await getAllContent();
+    const post = posts.find((p: BlogPost) => p.slug === slug);
     
     if (process.env.NODE_ENV === 'development') {
       if (post) {
         console.log(`✅ BUILD: Found post: ${post.title}`);
       } else {
         console.log(`❌ BUILD: Post not found for slug: ${slug}`);
-        console.log(`📋 BUILD: Available slugs:`, publishedPosts.map((p: BlogPost) => p.slug).slice(0, 10));
       }
     }
     
     return post || null;
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
-      console.error('❌ BUILD: Error fetching content by slug:', error);
+      console.error('❌ BUILD: Error fetching post by slug:', error);
     }
     return null;
   }

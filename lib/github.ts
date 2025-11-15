@@ -101,14 +101,20 @@ export async function fetchPostsFromGitHub(): Promise<GitHubPost[]> {
       `${GITHUB_API_URL}/repos/${owner}/${repo}/contents/posts`,
       {
         headers: {
-          Authorization: `token ${token}`,
-          'Accept': 'application/vnd.github.v3.raw',
+          Authorization: `Bearer ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'User-Agent': 'ailodi-cms',
         },
         cache: 'no-cache',
       }
     );
 
     if (!response.ok) {
+      // If 404, posts directory doesn't exist yet - return empty array
+      if (response.status === 404) {
+        console.warn('Posts directory not found on GitHub. Create posts/ folder in your repo.');
+        return [];
+      }
       throw new Error(`Failed to fetch posts directory: ${response.status}`);
     }
 
@@ -122,8 +128,9 @@ export async function fetchPostsFromGitHub(): Promise<GitHubPost[]> {
           `${GITHUB_API_URL}/repos/${owner}/${repo}/contents/${file.path}`,
           {
             headers: {
-              Authorization: `token ${token}`,
+              Authorization: `Bearer ${token}`,
               'Accept': 'application/vnd.github.v3.raw',
+              'User-Agent': 'ailodi-cms',
             },
             cache: 'no-cache',
           }
